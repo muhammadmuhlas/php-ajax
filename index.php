@@ -4,11 +4,17 @@
 	<title></title>
 </head>
 <body>
-<h3>Search</h3>
+<h3>Search By User ID [1 to 1000]</h3>
 <input type="text" name="search" id="search" onkeyup="search()" autofocus>
 
 <h3>Result</h3>
-<div id="result"></div>
+<div id="result">
+    <h4>First Name : <span id="first_name"></span></h4>
+    <h4>Last Name : <span id="last_name"></span></h4>
+    <h4>Email : <span id="email"></span></h4>
+    <h4>Gender : <span id="gender"></span></h4>
+    <h4>IP Address : <span id="ip_address"></span></h4>
+</div>
 </body>
 </html>
 
@@ -30,14 +36,35 @@ function search(){
 		},
 		success: function(data){
 
-            // input = JSON.parse(data)
+            var input = JSON.parse(data)
 
-            // if (input['status'] == 'success' && input['code'] == 200){
+            var status = input['status']
+            var message = input['message']
 
-            //     var first_name = input['data']['firstname'];
-            // }
+            if (status == '200' && message == 'Success'){
 
-			document.getElementById("result").innerHTML = data;
+
+                    var first_name = input['data']['first_name']
+                    var last_name = input['data']['last_name']
+                    var email = input['data']['email']
+                    var gender = input['data']['gender']
+                    var ip_address = input['data']['ip_address']
+
+                    document.getElementById("first_name").innerHTML = first_name;
+                    document.getElementById("last_name").innerHTML = last_name;
+                    document.getElementById("email").innerHTML = email;
+                    document.getElementById("gender").innerHTML = gender;
+                    document.getElementById("ip_address").innerHTML = ip_address;
+
+            } else {
+
+                document.getElementById("first_name").innerHTML = 'N/A';
+                document.getElementById("last_name").innerHTML = 'N/A';
+                document.getElementById("email").innerHTML = 'N/A';
+                document.getElementById("gender").innerHTML = 'N/A';
+                document.getElementById("ip_address").innerHTML = 'N/A';
+
+            }
 		},
 		error: function (data){
 			alert('error');

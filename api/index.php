@@ -1,7 +1,6 @@
 <?php
 $a = file_get_contents('data.json');
 $decoded = json_decode($a);
-
 if (isset($_GET['api_key']) && $_GET['api_key'] != ""){
 
 	$api_list = array(
@@ -16,6 +15,16 @@ if (isset($_GET['api_key']) && $_GET['api_key'] != ""){
 		if (isset($_GET['id'])){
 
 			$q = $_GET['id'];
+
+			if (preg_match("/[a-z]/i", $q)){
+
+				$output = array(
+					'status' => '400', 
+					'message' => 'Bad Request', 
+				);
+				echo json_encode($output);
+				exit;
+			}
 
 			foreach ($decoded as $data) {
 
@@ -41,7 +50,7 @@ if (isset($_GET['api_key']) && $_GET['api_key'] != ""){
 
 				$output = array(
 					'status' => '200',
-					'message' => 'Success', 
+					'message' => 'Success',
 					
 					'data' => array(
 						'first_name' => $first_name,
@@ -53,11 +62,19 @@ if (isset($_GET['api_key']) && $_GET['api_key'] != ""){
 
 				echo json_encode($output);
 			}
+		} else {
+
+			$output = array(
+				'status' => '400', 
+				'message' => 'Bad Request', 
+			);
+			echo json_encode($output);
+
 		}
 	} else {
 
 		$output = array(
-			'status' => '403', 
+			'status' => '500', 
 			'message' => 'Not Authorized', 
 		);
 
