@@ -20,22 +20,24 @@ function search(){
 
 	ajax({
 
-		url:"search.php",
+		url:"/api",
 		type:"GET",
 
 		data:{
-		  id: getId
+
+            api_key: "ASDFGHJKL",
+            id: getId
 		},
 		success: function(data){
 
-            // var input = JSON.parse(data)
+            // input = JSON.parse(data)
 
             // if (input['status'] == 'success' && input['code'] == 200){
 
             //     var first_name = input['data']['firstname'];
             // }
 
-			document.getElementById("result").innerHTML = JSON.parse(data)[0];
+			document.getElementById("result").innerHTML = data;
 		},
 		error: function (data){
 			alert('error');

@@ -6,11 +6,12 @@ if (isset($_GET['api_key']) && $_GET['api_key'] != ""){
 
 	$api_list = array(
 		'ASDFGHJKL', 
-		'QWERTYU'
+		'QWERTYUIOP',
+		'ZXCVBNM'
 		);
 	$get_api_key = $_GET['api_key'];
 
-	if (in_array($, $api_list)){
+	if (in_array($get_api_key, $api_list)){
 
 		if (isset($_GET['id'])){
 
@@ -31,16 +32,16 @@ if (isset($_GET['api_key']) && $_GET['api_key'] != ""){
 			if (!isset($id)){
 
 				$output = array(
-					'code' => '200', 
-					'status' => 'not found', 
+					'status' => '200', 
+					'message' => 'Data Not Found', 
 				);
 
 				echo json_encode($output);
 			} else {
 
 				$output = array(
-					'code' => '200',
-					'status' => 'success', 
+					'status' => '200',
+					'message' => 'Success', 
 					
 					'data' => array(
 						'first_name' => $first_name,
@@ -53,17 +54,23 @@ if (isset($_GET['api_key']) && $_GET['api_key'] != ""){
 				echo json_encode($output);
 			}
 		}
+	} else {
+
+		$output = array(
+			'status' => '403', 
+			'message' => 'Not Authorized', 
+		);
+
+		echo json_encode($output);
 	}
-
-	
-
-	if ()
 
 } else {
 
-	break;
+		$output = array(
+			'status' => '403', 
+			'message' => 'Not Authorized', 
+		);
+
+		echo json_encode($output);
 }
-
-
-		
 ?>
