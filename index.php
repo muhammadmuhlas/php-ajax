@@ -16,18 +16,26 @@
 
 function search(){
 
-	var query = document.getElementById('search').value;
+	var getId = document.getElementById('search').value;
 
-	minAjax({
+	ajax({
 
 		url:"search.php",
 		type:"GET",
 
 		data:{
-		  q: query
+		  id: getId
 		},
 		success: function(data){
-			document.getElementById("result").innerHTML = data;
+
+            // var input = JSON.parse(data)
+
+            // if (input['status'] == 'success' && input['code'] == 200){
+
+            //     var first_name = input['data']['firstname'];
+            // }
+
+			document.getElementById("result").innerHTML = JSON.parse(data)[0];
 		},
 		error: function (data){
 			alert('error');
@@ -52,7 +60,7 @@ function initXMLhttp() {
     return xmlhttp;
 }
 
-function minAjax(config) {
+function ajax(config) {
 
     if (!config.url) {
 
